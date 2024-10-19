@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Flights</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Search Flights</h1>
+    <form method="POST">
+        <label for="origin">Origin (IATA):</label>
+        <input type="text" id="origin" name="origin" required>
+        <label for="destination">Destination (IATA):</label>
+        <input type="text" id="destination" name="destination" required>
+        <label for="date">Departure Date (YYYY-MM-DD):</label>
+        <input type="text" id="date" name="date" required>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
