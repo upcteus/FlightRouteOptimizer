@@ -37,6 +37,9 @@ def create_app(flight_repository, airport_repository, find_best_flight_use_case,
                         }
                         routes.append(route)
 
+            if not routes:
+                return render_template('index.html', error="No flights found")
+
             best_route = bellman_ford(routes, origin)
 
             world_map = folium.Map(location=[20, 0], zoom_start=2)

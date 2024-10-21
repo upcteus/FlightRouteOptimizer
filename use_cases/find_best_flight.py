@@ -17,6 +17,11 @@ def bellman_ford(routes, origin):
     # Distance to origin is 0
     dist[origin] = 0
 
+    valid_duration = [float(route.get('duration', 0)) for route in routes if 'duration' in route]
+    if not valid_duration:
+        print("No valid durations found")
+        return None
+
     # Find maximum time and price for normalization
     max_time = max(float(route.get('duration', 0)) for route in routes if 'duration' in route)
     max_price = max(float(route.get('price', 0)) for route in routes if 'price' in route)
