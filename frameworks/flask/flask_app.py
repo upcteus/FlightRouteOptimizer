@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from use_cases.find_best_flight import bellman_ford
 from use_cases.calculate_route_duration import convert_duration_to_minutes
 import folium
@@ -7,6 +7,25 @@ from repositories.openflights_airport_repository import OpenFlightsAirportReposi
 
 def create_app(flight_repository, airport_repository, find_best_flight_use_case, calculate_route_duration_use_case):
     app = Flask(__name__)
+
+    @app.route('/airportSearch/', methods=['GET'])
+    def airport_search():
+        query = request.args.get('term', '')
+        if not query:
+            return jsonify([])
+
+        # Llamar a la nueva función en OpenFlightsAirportRepository
+        airports = airport_repository.search_airports(query)
+
+        # Formatear los resultados para el autocompletado
+        results = []
+        for airport in airports:
+            results.append({
+                'label': f"{airport['city']}, {airport['name']} ({airport['iata']}) - {airport['country']}",
+                'value': airport['iata']
+            })
+
+        return jsonify(results)
 
     @app.route('/', methods=['GET', 'POST'])
     def home():

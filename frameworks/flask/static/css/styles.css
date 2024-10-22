@@ -1,31 +1,86 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fa;
+.flight-search-page, body, html {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-content: stretch;
+    justify-content: flex-start;
+    align-items: stretch
 }
 
-#map-container {
-    width: 100%;
-    height: 50vh;
-    margin-top: 20px;
+/* Imagen de fondo */
+.flight-search-page {
+    background: url('https://fotografias.lasexta.com/clipping/cmsimages02/2022/01/28/11E0D667-202F-407D-AC10-B0A90BA5E499/vuelo-avion_98.jpg?crop=8660,4872,x0,y221&width=1900&height=1069&optimize=high&format=webply') no-repeat center ;
+    background-size: cover;
+    position: relative;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+/* Sombreado encima de la imagen de fondo */
+.flight-search-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Sombra oscura */
+    z-index: 0;
 }
 
-th, td {
+/* Contenedor del formulario */
+.form-container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 100px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #333; /* Cambiar el color a algo más legible sobre el fondo claro */
+    margin-bottom: 20px;
+    font-size: 24px;
+    z-index: 1;
+}
+
+/* Estilos de los campos del formulario */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"], input[type="date"] {
+    width: calc(100% - 20px);
     padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
     border: 1px solid #ddd;
-    text-align: left;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-th {
-    background-color: #f2f2f2;
+/* Botón de enviar */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FF5733;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #E74C3C;
 }

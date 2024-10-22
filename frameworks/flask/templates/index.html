@@ -5,17 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Flights</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
-    <h1>Search Flights</h1>
-    <form method="POST">
-        <label for="origin">Origin (IATA):</label>
-        <input type="text" id="origin" name="origin" required>
-        <label for="destination">Destination (IATA):</label>
-        <input type="text" id="destination" name="destination" required>
-        <label for="date">Departure Date (YYYY-MM-DD):</label>
-        <input type="text" id="date" name="date" required>
-        <button type="submit">Search</button>
-    </form>
+
+    <div class="flight-search-page">
+        <div class="form-container">
+            <h1>Search Flights</h1>
+            <form method="POST">
+                <label for="origin">Origin (IATA):</label>
+                <input type="text" id="origin" class="autocomplete" name="origin" required placeholder="City">
+
+                <label for="destination">Destination (IATA):</label>
+                <input type="text" id="destination" class="autocomplete" name="destination" required placeholder="City">
+
+                <label for="date">Departure Date:</label>
+                <input type="text" id="date" name="date" required>
+
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        // Inicializa Flatpickr para el campo de fecha
+        flatpickr("#date", {
+            dateFormat: "Y-m-d", // Configuración de formato de fecha YYYY-MM-DD
+            minDate: "today",    // Solo permite fechas a partir de hoy
+        });
+
+        // Autocompletado para aeropuertos
+        $(".autocomplete").on("input", function() {
+            var value = $(this).val();
+            $.ajax({
+                url: '/airportSearch/',  // La ruta Flask que creamos
+                dataType: 'json',
+                data: {
+                    term: value  // Lo que el usuario está escribiendo
+                },
+                success: function(data) {
+                    $(".autocomplete").autocomplete({
+                        source: data
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
